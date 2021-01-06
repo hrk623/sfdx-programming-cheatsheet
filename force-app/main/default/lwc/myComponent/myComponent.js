@@ -49,7 +49,7 @@ import { getSObjectValue, refreshApex } from "@salesforce/apex";
 // => refreshApex(wiredProperty) // キャッシュをリフレッシュする
 
 // カスタム Apex メソッドをコールする場合
-import findRecord from "@salesforce/apex/MyComponentController.findRecord";
+import findRecord from "@salesforce/apex/MyComponentController.findAccountsByName";
 // => findRecord({recordId: this.recordId}).then(result => console.log(result)).catch(error =>  console.error(error));
 // => @wire(findRecord, {recordId: '$recordId'}) wiredRecord({error, data}) {}
 // => @wire(findRecord, {recordId: '$recordId'}) record;
