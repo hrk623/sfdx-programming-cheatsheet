@@ -1,0 +1,49 @@
+<template>
+    <lightning-card title="My Component" icon-name="custom:custom14">
+
+        <!-- id 属性はランタイムでグローバル id に変換される可能性がある -->
+        <!-- JavaScript からクエリする必要がある場合は data 属性などを活用する-->
+        <div id="useless" data-id="useful"></div>
+
+        <!-- カスタムイベントを処理するには、「onイベント名」にハンドラを登録する -->
+        <div data-id="eventhandler" oncustomeventwithparams={handleEvent}></div>
+
+        <!-- 条件付き描画には if:true か if:false を使う。 -->
+        <!-- 条件が複雑な場合は getter 内で事前に評価させtる -->
+        <template if:true={condition}>condition === true</template>
+        <template if:false={condition}>condition === false</template>
+
+        <!-- リストの描画には for:each または iterator を使う -->
+        <!-- リストの要素には必ず key 項目が必要。なければ生成する必要がある。 -->
+        <!-- key 項目は再描画の対象の検出に使われる -->
+        <template for:each={records} for:item="record" for:index="index">
+            <div key={record.Id}>{index}: {record.Name}</div>
+        </template>
+        <template iterator:it={records}>
+            <div key={it.value.Id}>
+                {it.index}: {it.value.Name}
+                <span if:true={it.first}> - First!</span>
+                <span if:true={it.last}> - Last!</span>
+            </div>
+        </template>
+
+        <!-- レイアウトを指定する -->
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12" padding="around-small">item1</lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">item2</lightning-layout-item>
+        </lightning-layout>
+
+        <!-- JavaScript で appendChild() する必要がある場合は、lwc:dom を設定する -->
+        <div lwc:dom="manual" id="graph"></div>
+
+        <!-- 親コンポーネントからのDOM の挿入を受け入れる場合は slot を使う -->
+        <!-- slot に挿入された DOM は this.querySelector() できる -->
+        <slot></slot>
+        <slot name="namedSlot"></slot>
+
+        <!-- slot の変更を監視するには、 renderedCallback 以降で this.template.querySelector('slot').addEventListener('slotchange', e => {}); -->
+        <!-- または、 ハンドラを登録しておくことで e.currentTarget.assignedNodes() にアクセスできる  -->
+        <slot onslotchange={onSlotChanged}></slot>
+
+    </lightning-card>
+</template>

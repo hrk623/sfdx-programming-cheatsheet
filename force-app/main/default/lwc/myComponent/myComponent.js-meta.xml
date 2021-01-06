@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="myTemplate">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>My Component</masterLabel>
+    <description>This is my component</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__Inbox</target>
+        <target>lightning__UtilityBar</target>
+        <target>lightningSnapin__ChatMessage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__Tab</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage, lightning__HomePage">
+            <property type="String"  name="stringValue"   label="String Value"   default="text"     placeholder="type somthing" description="useful description"></property>
+            <property type="String"  name="requiredValue" label="Required Value" default="required" required="true"></property>
+            <property type="Boolean" name="booleanValue"  label="Boolean Value"  default="true"     ></property>
+            <property type="Integer" name="integerValue"  label="Integer Value"  default="5"        min="0" max="10"></property>
+            <property type="String"  name="picklistValue" label="Picklist Value" default="value3"   datasource="value1,value2,value3" />
+            <property type="String"  name="dynamicPicklistValue" label="Dynamic PickList Value"     datasource="apex://MyDynamicPickList"/>
+            <supportedFormFactors>
+                <supportedFormFactor type="Large" />
+            </supportedFormFactors>
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+          <objects>
+              <object>Account</object>
+              <object>Contact</object>
+          </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+            type="String" name="recordId" label="Record Id"  default="{!recordId}" description="コミィニティではコンテキストレコードの情報はこの方法で設定する必要がある" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
