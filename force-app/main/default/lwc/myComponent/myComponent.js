@@ -117,6 +117,8 @@ export default class MyComponent extends NavigationMixin(LightningElement) {
     return this.privateProperty;
   }
   set publicProperty(value) {
+    // <c-cmp attr1={value1} attr2={value2}> の場合、
+    // attr2 の値がセットされる前に attr1 の setter が起動するので依存関係に注意
     this.privateProperty = value.toUpperCase();
     this.setAttribute("privateProperty", this.privateProperty);
   }
